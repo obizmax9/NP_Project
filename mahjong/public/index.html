@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Mahjong</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="lobby">
+    <h1>🀄 Live Mahjong</h1>
+    <p>4-Player Real-Time Mahjong</p>
+    <div class="lobby-form">
+      <input id="playerName" type="text" placeholder="Your name" maxlength="20" />
+      <div class="lobby-buttons">
+        <button id="createBtn" class="btn btn-primary">Create Room</button>
+        <div class="join-row">
+          <input id="roomCode" type="text" placeholder="Room code" maxlength="6" />
+          <button id="joinBtn" class="btn btn-secondary">Join Room</button>
+        </div>
+      </div>
+      <p id="lobbyError" class="error-msg"></p>
+    </div>
+  </div>
+
+  <div id="waitingRoom" class="hidden">
+    <h2>Waiting for players...</h2>
+    <p>Room Code: <strong id="displayRoomCode"></strong></p>
+    <p>Share this code with others to join!</p>
+    <div id="playerList"></div>
+    <p id="waitingMsg">Waiting for 3 more players...</p>
+  </div>
+
+  <div id="gameBoard" class="hidden">
+    <!-- Top opponent -->
+    <div class="opponent-area" id="area-top">
+      <div class="opponent-info" id="info-top"></div>
+      <div class="opponent-hand" id="hand-top"></div>
+      <div class="opponent-discards" id="discards-top"></div>
+      <div class="opponent-melds" id="melds-top"></div>
+    </div>
+
+    <!-- Middle row: left, center, right -->
+    <div class="middle-row">
+      <div class="opponent-area side" id="area-left">
+        <div class="opponent-info" id="info-left"></div>
+        <div class="opponent-hand rotated" id="hand-left"></div>
+        <div class="opponent-discards" id="discards-left"></div>
+        <div class="opponent-melds" id="melds-left"></div>
+      </div>
+
+      <div id="centerArea">
+        <div id="wallCount"></div>
+        <div id="discardPile"></div>
+        <div id="claimButtons" class="hidden">
+          <p id="claimPrompt"></p>
+          <button class="btn btn-claim" data-claim="win">Win (Tsumo/Ron)</button>
+          <button class="btn btn-claim" data-claim="kong">Kong (4)</button>
+          <button class="btn btn-claim" data-claim="pung">Pung (3)</button>
+          <button class="btn btn-claim" data-claim="chow">Chow (Seq)</button>
+          <button class="btn btn-pass" data-claim="pass">Pass</button>
+        </div>
+        <div id="gameMessage"></div>
+      </div>
+
+      <div class="opponent-area side" id="area-right">
+        <div class="opponent-info" id="info-right"></div>
+        <div class="opponent-hand rotated" id="hand-right"></div>
+        <div class="opponent-discards" id="discards-right"></div>
+        <div class="opponent-melds" id="melds-right"></div>
+      </div>
+    </div>
+
+    <!-- Bottom: my hand -->
+    <div id="myArea">
+      <div id="myMelds"></div>
+      <div id="myHand"></div>
+      <div id="myInfo"></div>
+      <div id="myActions">
+        <button id="selfDrawBtn" class="btn btn-win hidden">Declare Win (Tsumo)</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="hidden">
+    <div class="result-card">
+      <h2 id="resultTitle"></h2>
+      <p id="resultDetail"></p>
+      <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/client.js"></script>
+</body>
+</html>
